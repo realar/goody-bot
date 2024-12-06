@@ -53,124 +53,105 @@ def get_companies():
 
 @app.route('/webapp')
 def webapp_page():
-    # Простая HTML-страница, интегрированная с Telegram WebApp
-    # Используем window.Telegram.WebApp для получения цветовой схемы, настроек темы
-    # Минимальный интерфейс: список компаний и блок деталей
     html = """
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Companies WebApp</title>
+<title>Гуди - Компании</title>
 <style>
-    body {
-        font-family: sans-serif;
+    body, html {
         margin: 0; padding: 0;
-        background: #f9f9f9;
-        color: #333;
+        font-family: sans-serif;
+        background: #fff;
+        color: #000;
     }
-    header {
-        background: #0088cc;
+    /* Шапка */
+    .header {
+        display: flex;
+        align-items: center;
+        background: #000;
         color: #fff;
         padding: 10px;
-        text-align: center;
     }
-    .container {
+    .header-logo {
+        font-size: 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .header-logo::before {
+        content: "❞";
+        font-size: 20px;
+        margin-right: 5px;
+        transform: rotate(180deg);
+        display: inline-block;
+    }
+    .header-spacer {
+        flex: 1;
+    }
+    .header-menu {
+        width: 24px;
+        height: 24px;
+        background: no-repeat center/contain url('data:image/svg+xml,%3Csvg width="24" height="24" viewBox="0 0 24 24" fill="%23fff" xmlns="http://www.w3.org/2000/svg"%3E%3Crect x="3" y="5" width="18" height="2" rx="1" fill="%23fff"/%3E%3Crect x="3" y="11" width="18" height="2" rx="1" fill="%23fff"/%3E%3Crect x="3" y="17" width="18" height="2" rx="1" fill="%23fff"/%3E%3C/svg%3E');
+    }
+
+    /* Строка для выбора страны аукциона */
+    .country-select {
+        background: #eaeaea;
         padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        color: #333;
     }
-    .company-list, .company-details {
-        margin-bottom: 20px;
+    .country-select-text {
+        opacity: 0.7;
     }
-    .company-item {
-        background: #fff;
-        border: 1px solid #ddd;
-        padding: 10px;
-        margin: 5px 0;
-        cursor: pointer;
+    .country-select-arrow {
+        width: 14px;
+        height: 14px;
+        background: no-repeat center/contain url('data:image/svg+xml,%3Csvg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M4.08331 5.16667L7.00065 8.08333L9.91798 5.16667" stroke="%23999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E');
+        opacity: 0.7;
     }
-    .company-item:hover {
-        background: #eee;
+
+    /* Основной контент */
+    .content {
+        padding: 20px;
+        font-size: 16px;
+        line-height: 1.4;
     }
-    .details {
-        background: #fff;
-        border: 1px solid #ddd;
-        padding: 10px;
-    }
-    .back-button {
-        display: none;
-        margin-bottom: 10px;
-        cursor: pointer;
-        color: #0088cc;
-        text-decoration: underline;
-    }
+
 </style>
 </head>
 <body>
-    <header>
-        <h1>Список компаний</h1>
-    </header>
-    <div class="container">
-        <div class="company-list" id="company-list">
-            Загрузка компаний...
-        </div>
-        <div class="back-button" id="back-button">← Назад</div>
-        <div class="company-details" id="company-details" style="display:none;"></div>
+    <div class="header">
+        <div class="header-logo">гуди</div>
+        <div class="header-spacer"></div>
+        <div class="header-menu"></div>
+    </div>
+
+    <div class="country-select">
+        <div class="country-select-text">Страна аукциона</div>
+        <div class="country-select-arrow"></div>
+    </div>
+
+    <div class="content">
+        Пока что здесь нет компаний,<br>но мы над этим работаем!
     </div>
 
 <script>
-    // Работаем с Telegram WebApp API
     const tg = window.Telegram.WebApp;
-    tg.expand(); // Расширяем на весь экран
-
-    // Загрузка списка компаний
-    fetch('/api/companies')
-      .then(response => response.json())
-      .then(data => {
-          const listEl = document.getElementById('company-list');
-          listEl.innerHTML = '';
-          for (const cid in data) {
-              const item = document.createElement('div');
-              item.className = 'company-item';
-              item.textContent = data[cid].name;
-              item.onclick = () => showDetails(cid, data[cid]);
-              listEl.appendChild(item);
-          }
-      });
-
-    const detailsEl = document.getElementById('company-details');
-    const backBtn = document.getElementById('back-button');
-    const listEl = document.getElementById('company-list');
-
-    function showDetails(cid, company) {
-        detailsEl.innerHTML = '';
-        const div = document.createElement('div');
-        div.className = 'details';
-        div.innerHTML = '<h2>' + company.name + '</h2><p>' + company.description + '</p>';
-        detailsEl.appendChild(div);
-        detailsEl.style.display = 'block';
-        listEl.style.display = 'none';
-        backBtn.style.display = 'block';
-    }
-
-    backBtn.onclick = () => {
-        detailsEl.style.display = 'none';
-        listEl.style.display = 'block';
-        backBtn.style.display = 'none';
-    };
-
-    // Настройка цветов из темы Telegram
-    const themeParams = tg.themeParams;
-    document.body.style.backgroundColor = themeParams.bg_color || '#f9f9f9';
-    document.body.style.color = themeParams.text_color || '#333';
-
-    const header = document.querySelector('header');
-    if (themeParams.header_color) {
-        header.style.backgroundColor = themeParams.header_color;
-    }
-
-    // Когда WebApp готов - сообщим Telegram
+    tg.expand();
     tg.ready();
+
+    // Подстройка цветов под тему Telegram (если нужно)
+    const themeParams = tg.themeParams;
+    // Пример (можно убрать если не требуется темизация):
+    // document.body.style.backgroundColor = themeParams.bg_color || '#fff';
+    // document.body.style.color = themeParams.text_color || '#000';
 </script>
 </body>
 </html>

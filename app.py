@@ -5,8 +5,7 @@ from telegram.ext import CallbackContext, CommandHandler, CallbackQueryHandler, 
 from telegram.ext import Updater
 
 # Задайте ваш токен бота
-TELEGRAM_BOT_TOKEN = os.environ.get("
-8054149603:AAF1Tuuk977Zq7e3jz1dkSfviy5D88rxIEs", "")
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 
 app = Flask(__name__)
 

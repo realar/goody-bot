@@ -69,11 +69,14 @@ def webapp_page():
     }
     /* Шапка */
     .header {
+        height: 48px;
+        margin: 16px;
         display: flex;
         align-items: center;
         background: #000;
         color: #fff;
-        padding: 10px;
+        padding: 0px 16px;
+        border-radius: 12px;
     }
     .header-logo {
         font-size: 20px;
@@ -99,13 +102,16 @@ def webapp_page():
 
     /* Строка для выбора страны аукциона */
     .country-select {
+        height: 40px;
+        margin: 16px;
         background: #eaeaea;
-        padding: 10px;
+        padding: 0px 16px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         font-size: 14px;
         color: #333;
+        border-radius: 12px;
     }
     .country-select-text {
         opacity: 0.7;
@@ -120,7 +126,7 @@ def webapp_page():
     /* Основной контент */
     .content {
         padding: 20px;
-        font-size: 16px;
+        font-size: 20px;
         line-height: 1.4;
     }
 

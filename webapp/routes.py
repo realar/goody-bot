@@ -14,6 +14,7 @@ def fetch_companies_from_api():
         # Преобразуем API-ответ в удобный формат
         companies = [
             {
+                "id": item.get("id"),
                 "name": item.get("field_3083783"),  # Имя компании
                 "description": item.get("field_3083784")  # Описание
             }

@@ -1,25 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Каталог компаний</title>
     <style>
-        .company-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        .company-item {
-            background-color: #f0f0f0; /* Светло-серый фон */
-            margin: 10px 0; /* Отступы между элементами */
-            padding: 10px 15px; /* Внутренние отступы */
-            border-radius: 8px; /* Закруглённые углы */
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Тень */
+        .company {
+            background-color: #f8f8f8;
+            padding: 16px;
+            margin-bottom: 8px;
+            border-radius: 8px;
         }
         .company-name {
             font-weight: bold;
-            font-size: 16px;
-            color: #333;
-            margin-bottom: 5px; /* Отступ между названием и описанием */
+            font-size: 18px;
+            margin-bottom: 8px;
         }
         .company-description {
             font-size: 14px;
@@ -28,14 +23,41 @@
     </style>
 </head>
 <body>
-    <h1>Каталог компаний</h1>
-    <ul class="company-list">
-        {% for company in companies %}
-        <li class="company-item">
-            <div class="company-name">{{ company.name }}</div>
-            <div class="company-description">{{ company.description }}</div>
-        </li>
-        {% endfor %}
-    </ul>
+    <div class="content">
+        <h1>Каталог компаний</h1>
+        <div id="company-list">
+            <!-- Список компаний будет динамически загружаться сюда -->
+        </div>
+    </div>
+    <script>
+        async function loadCompanies() {
+            try {
+                const response = await fetch('/api/companies');
+                if (response.ok) {
+                    const companies = await response.json();
+                    const companyList = document.getElementById('company-list');
+                    companyList.innerHTML = ''; // Очищаем старый контент
+
+                    for (const companyId in companies) {
+                        const company = companies[companyId];
+                        const companyElement = document.createElement('div');
+                        companyElement.className = 'company';
+                        companyElement.innerHTML = `
+                            <div class="company-name">${company.name}</div>
+                            <div class="company-description">${company.description}</div>
+                        `;
+                        companyList.appendChild(companyElement);
+                    }
+                } else {
+                    console.error('Ошибка загрузки данных:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки данных:', error);
+            }
+        }
+
+        // Загружаем данные при загрузке страницы
+        document.addEventListener('DOMContentLoaded', loadCompanies);
+    </script>
 </body>
 {% endblock %}

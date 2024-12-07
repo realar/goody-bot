@@ -58,3 +58,6 @@ def send_webapp_link(update: Update, context: CallbackContext):
 # Регистрируем обработчики команд
 dispatcher.add_handler(CommandHandler("start", start))
 dispatcher.add_handler(CommandHandler("webapp", send_webapp_link))
+
+updater.start_polling()
+updater.idle()

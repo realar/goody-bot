@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="company-details">
-    <a class="back-btn" href="{{ url_for('webapp.webapp_page') }}">Назад к каталогу компаний</a>
+    <a class="back-btn" href="{{ url_for('webapp.webapp_page') }}">Назад к каталогу</a>
     <div class="company-images" id="company-carousel">
         {% for image in company.images %}
         <a href="{{ image }}" data-lg-size="1600-1067" data-lg="true">
@@ -36,6 +36,7 @@
 <style>
     .back-btn {
         font-size: 16px;
+        color: #617EFF;
     }
     .company-details {
         padding: 20px;

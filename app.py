@@ -1,3 +1,4 @@
+import requests
 from flask import Flask, request, render_template
 from telegram import Update
 from bot import bot, dispatcher

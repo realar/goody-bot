@@ -6,8 +6,8 @@ from config import TELEGRAM_BOT_TOKEN
 bot = Bot(token=TELEGRAM_BOT_TOKEN)
 dispatcher = Dispatcher(bot, None, workers=0)
 
-dispatcher.add_handler(CommandHandler("start", start))
-dispatcher.add_handler(CommandHandler("webapp", send_webapp_link))
+dispatcher.add_handler(CommandHandler("/start", start))
+dispatcher.add_handler(CommandHandler("/webapp", send_webapp_link))
 
 # Обработчик команды /start
 def start(update: Update, context: CallbackContext):

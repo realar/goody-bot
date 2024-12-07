@@ -55,11 +55,12 @@
     }
 
     .company-images img {
-        max-width: 150px; /* Миниатюры */
-        height: auto;
+        height: 150px; /* Устанавливаем фиксированную высоту */
+        width: auto; /* Ширина будет автоматически подстраиваться */
         border-radius: 5px;
         cursor: pointer;
         transition: transform 0.3s;
+        object-fit: cover; /* Заполняет контейнер с сохранением пропорций */
     }
 
     .company-images img:hover {

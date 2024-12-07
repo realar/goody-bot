@@ -9,7 +9,7 @@ app.register_blueprint(webapp_bp)  # Регистрируем blueprint веб-�
 
 @app.route('/')
 def index():
-    return "Бот работает!", 200
+    return "Главная страница"
 
 @app.route('/webhook', methods=['POST'])
 def webhook():

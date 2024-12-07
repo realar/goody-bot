@@ -22,28 +22,39 @@
     }
 
     function renderCompanies(companies) {
-        const container = document.getElementById('company-list');
-        container.innerHTML = '';
-        if (companies.length === 0) {
-            container.innerHTML = '<p>Компании не найдены.</p>';
-            return;
-        }
-        companies.forEach(company => {
-            const companyElement = document.createElement('div');
-            companyElement.classList.add('company');
-            companyElement.href = `/company/${company.id}`; // Генерация ссылки на детали компани
-            companyElement.innerHTML = `
-                <div class="company-logo"><img src="{{ company.logo }}" alt="Логотип компании {{ company.name }}"></div>
-                <div class="company-name">${company.name}</div>
-                <div class="company-description">${company.description}</div>
-            `;
-            // Добавляем обработчик клика
-        companyElement.addEventListener('click', () => {
-            window.location.href = `/company/${company.id}`; // Перенаправление на страницу деталей компании
-        });
-            container.appendChild(companyElement);
-        });
+    const container = document.getElementById('company-list');
+    container.innerHTML = ''; // Очищаем контейнер
+
+    if (companies.length === 0) {
+        container.innerHTML = '<p>Компании не найдены.</p>';
+        return;
     }
+
+    companies.forEach(company => {
+        const companyElement = document.createElement('div');
+        companyElement.classList.add('company');
+
+        // Проверяем наличие данных, чтобы избежать ошибок
+        const logo = company.logo || 'default-logo.png'; // Подставьте путь к изображению по умолчанию
+        const name = company.name || 'Без названия';
+        const description = company.description || 'Описание отсутствует';
+
+        companyElement.innerHTML = `
+            <div class="company-logo">
+                <img src="${logo}" alt="Логотип компании ${name}">
+            </div>
+            <div class="company-name">${name}</div>
+            <div class="company-description">${description}</div>
+        `;
+
+        // Добавляем обработчик клика для перенаправления
+        companyElement.addEventListener('click', () => {
+            window.location.href = `/company/${company.id}`; // Переход на страницу компании
+        });
+
+        container.appendChild(companyElement); // Добавляем элемент в контейнер
+    });
+}
 
     // Загружаем данные при загрузке страницы
     fetchCompanies();

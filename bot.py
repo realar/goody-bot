@@ -8,7 +8,7 @@ dispatcher = Dispatcher(bot, None, workers=0)
 
 def start(update: Update, context: CallbackContext):
     # URL вашего приложения
-    webapp_url = "https://ваш_домен/webapp"
+    webapp_url = "https://goody-bot.onrender.com/webapp"
 
     # Кнопка для открытия WebApp
     keyboard = [

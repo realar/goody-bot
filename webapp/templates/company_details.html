@@ -11,6 +11,14 @@
     </div>
     <h2>{{ company.name }}</h2>
     <p>{{ company.description }}</p>
+
+    {% if company.admin %}
+    <div class="contact-admin">
+        <a href="https://t.me/{{ company.admin }}" target="_blank" class="contact-btn">Связаться с администратором</a>
+    </div>
+    {% else %}
+    <p class="no-admin">Контакт администратора недоступен.</p>
+    {% endif %}
 </div>
 
 <!-- Подключение стилей Lightbox -->
@@ -37,15 +45,21 @@
     .back-btn {
         font-size: 16px;
         color: #617EFF;
+        text-decoration: none;
+        margin-bottom: 15px;
+        display: inline-block;
     }
+
     .company-details {
         padding: 20px;
         background-color: #f9f9f9;
         border-radius: 8px;
     }
+
     .company-details h2 {
         margin-bottom: 10px;
     }
+
     .company-details p {
         font-size: 14px;
         color: #555;
@@ -73,6 +87,31 @@
 
     .company-images a {
         text-decoration: none;
+    }
+
+    .contact-admin {
+        margin-top: 20px;
+    }
+
+    .contact-btn {
+        display: inline-block;
+        background-color: #617EFF;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .contact-btn:hover {
+        background-color: #506cd5;
+    }
+
+    .no-admin {
+        font-size: 14px;
+        color: #888;
+        margin-top: 20px;
     }
 </style>
 {% endblock %}

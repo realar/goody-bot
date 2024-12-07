@@ -45,7 +45,6 @@ body, html {
     background-position: center;
     font-size: 20px;
     margin-right: 5px;
-    transform: rotate(180deg);
     display: inline-block;
 }
 

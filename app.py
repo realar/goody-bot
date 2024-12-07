@@ -7,10 +7,6 @@ from config import HOST, PORT
 app = Flask(__name__)
 app.register_blueprint(webapp_bp)  # Регистрируем blueprint веб-приложения
 
-@app.route('/')
-def index():
-    return "Главная страница"
-
 @app.route('/webhook', methods=['POST'])
 def webhook():
     if request.method == "POST":

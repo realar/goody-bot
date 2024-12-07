@@ -7,7 +7,19 @@ bot = Bot(token=TELEGRAM_BOT_TOKEN)
 dispatcher = Dispatcher(bot, None, workers=0)
 
 def start(update: Update, context: CallbackContext):
-    update.message.reply_text("Привет! Наберите /webapp чтобы получить ссылку на WebApp.")
+    # URL вашего приложения
+    webapp_url = "https://ваш_домен/webapp"
+
+    # Кнопка для открытия WebApp
+    keyboard = [
+        [
+            InlineKeyboardButton("Открыть приложение", web_app={"url": webapp_url})
+        ]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    # Отправляем сообщение с кнопкой
+    update.message.reply_text("Нажмите кнопку ниже, чтобы открыть приложение:", reply_markup=reply_markup)
 
 def send_webapp_link(update: Update, context: CallbackContext):
     webapp_url = "https://goody-bot.onrender.com/webapp"

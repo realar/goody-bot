@@ -1,15 +1,37 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="company-details">
-    <div class="company-images">
-    {% for image in company.images %}
-    <img src="{{ image }}" alt="Изображение компании {{ company.name }}">
-    {% endfor %}
+    <div class="company-images" id="company-carousel">
+        {% for image in company.images %}
+        <a href="{{ image }}" data-lg-size="1600-1067" data-lg="true">
+            <img src="{{ image }}" alt="Изображение компании {{ company.name }}">
+        </a>
+        {% endfor %}
     </div>
     <h2>{{ company.name }}</h2>
     <p>{{ company.description }}</p>
     <a href="{{ url_for('webapp.webapp_page') }}">Назад к каталогу компаний</a>
 </div>
+
+<!-- Подключение стилей Lightbox -->
+<link href="https://cdn.jsdelivr.net/npm/lightgallery/css/lightgallery-bundle.min.css" rel="stylesheet">
+
+<!-- Подключение JavaScript Lightbox -->
+<script src="https://cdn.jsdelivr.net/npm/lightgallery/lightgallery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightgallery/plugins/zoom/lg-zoom.min.js"></script>
+
+<script>
+    // Инициализация карусели с поддержкой полноэкранного просмотра
+    document.addEventListener('DOMContentLoaded', () => {
+        lightGallery(document.getElementById('company-carousel'), {
+            thumbnail: true,
+            zoom: true,
+            download: false,
+            actualSize: false
+        });
+    });
+</script>
 
 <style>
     .company-details {
@@ -23,6 +45,29 @@
     .company-details p {
         font-size: 14px;
         color: #555;
+    }
+
+    .company-images {
+        display: flex;
+        overflow-x: auto;
+        gap: 10px;
+        padding: 10px 0;
+    }
+
+    .company-images img {
+        max-width: 150px; /* Миниатюры */
+        height: auto;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+
+    .company-images img:hover {
+        transform: scale(1.1);
+    }
+
+    .company-images a {
+        text-decoration: none;
     }
 </style>
 {% endblock %}

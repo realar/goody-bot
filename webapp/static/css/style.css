@@ -36,7 +36,13 @@ body, html {
 }
 
 .header-logo::before {
-    content: url('https://jmp.sh/ru3No24b');
+    content: "";
+    width: 24px; /* Укажите ширину логотипа */
+    height: 24px; 
+    background-image: url('https://pouch.jumpshare.com/preview/7bhJNpJ39Nh20ctwR4XUHNiM7E5ZMIhU7pE1iOuM4GqD2v95F5oJVjqgDzUYM3BUw9Ok0Suj8JZEvCZ7pTm_LrbWNV2KS_78CT7JMUudnEA');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     font-size: 20px;
     margin-right: 5px;
     transform: rotate(180deg);

@@ -37,8 +37,8 @@ body, html {
 
 .header-logo::before {
     content: "";
-    width: 24px; /* Укажите ширину логотипа */
-    height: 24px; 
+    width: 20px; /* Укажите ширину логотипа */
+    height: 20px; 
     background-image: url('https://i.ibb.co/QPXtvCV/logo-goody.webp');
     background-size: contain;
     background-repeat: no-repeat;

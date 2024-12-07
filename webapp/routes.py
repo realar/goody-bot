@@ -43,8 +43,9 @@ def webapp_page():
 
 @webapp_bp.route('/api/companies')
 def get_companies():
-    return jsonify([
-        {"name": "Company A", "description": "Company A - ведущий производитель электроники."},
-        {"name": "Company B", "description": "Company B - глобальная торговая сеть."},
-        {"name": "Company C", "description": "Company C - инновационный стартап в сфере ИИ."}
-    ])
+    try:
+        companies = fetch_companies_from_api()  # Загружаем данные из базы
+        return jsonify(companies)
+    except Exception as e:
+        print(f"Ошибка при загрузке данных из API: {e}")
+        return jsonify({"error": "Не удалось загрузить данные"}), 500

@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Каталог компаний</h1>
-<p>Пока что здесь нет компаний,<br>но мы над этим работаем!</p>
+<head>
+    <meta charset="UTF-8">
+    <title>Каталог компаний</title>
+</head>
+<body>
+    <h1>Каталог компаний</h1>
+    <ul>
+    {% for company in companies %}
+        <li>{{ company.Name }} - {{ company.Description }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
 {% endblock %}

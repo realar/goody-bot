@@ -3,8 +3,8 @@ from flask import Blueprint, render_template, jsonify
 
 def fetch_companies_from_api():
     BASE_URL = "https://api.baserow.io/api"  # Пример API
-    TOKEN = "ВАШ_ТОКЕН"
-    TABLE_ID = "ВАШ_TABLE_ID"
+    TOKEN = "jCemNYEzlw9FlzKGNElvoAbh6o2gbFc4"
+    TABLE_ID = 403967
 
     response = requests.get(
         f"{BASE_URL}/database/rows/table/{TABLE_ID}/",

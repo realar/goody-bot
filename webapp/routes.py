@@ -17,8 +17,7 @@ def fetch_companies_from_api():
                 "id": item.get("id"),
                 "name": item.get("field_3083783"),  # Имя компании
                 "description": item.get("field_3083784"),  # Описание
-                "images": [photo.get("url") for photo in item.get("field_3083970", []) if photo.get("url")]
-                "logo": item.get("field_3084312") # Логотип компании (URL)
+                "images": [photo.get("url") for photo in item.get("field_3083970", []) if photo.get("url")],
                 "logo": (item.get("field_3084312", [{}])[0].get("url") if item.get("field_3084312") else "")
             }
             for item in response.json().get("results", [])

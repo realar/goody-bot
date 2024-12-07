@@ -7,6 +7,10 @@ from config import HOST, PORT
 app = Flask(__name__, static_folder='webapp/static')
 app.register_blueprint(webapp_bp)  # Регистрируем blueprint веб-приложения
 
+BASE_URL = "https://api.baserow.io/api"
+TOKEN = "jCemNYEzlw9FlzKGNElvoAbh6o2gbFc4"  # Ваш токен
+table_id = 403967       # Ваш table_id
+
 @app.route('/webhook', methods=['POST'])
 def webhook():
     if request.method == "POST":
@@ -16,7 +20,20 @@ def webhook():
 
 @app.route('/')
 def index():
-    return render_template('index.html', title="Каталог компаний")
+    response = requests.get(
+        f"{BASE_URL}/database/rows/table/{table_id}/",
+        headers={"Authorization": f"Token {TOKEN}"}
+    )
+
+    if response.status_code == 200:
+        data = response.json()['results']
+        # data - это список словарей. Каждый словарь — запись компании
+        # Например, data[0]['Name'] может быть названием компании,
+        # если такое поле есть в таблице.
+
+        return render_template('index.html', companies=data)
+    else:
+        return f"Error: {response.status_code} {response.text}", 500
 
 @app.route('/autos')
 def autos():

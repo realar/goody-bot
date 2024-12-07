@@ -33,6 +33,7 @@
             companyElement.classList.add('company');
             companyElement.href = `/company/${company.id}`; // Генерация ссылки на детали компани
             companyElement.innerHTML = `
+                <div class="company-logo"><img src="{{ company.logo }}" alt="Логотип компании {{ company.name }}"></div>
                 <div class="company-name">${company.name}</div>
                 <div class="company-description">${company.description}</div>
             `;

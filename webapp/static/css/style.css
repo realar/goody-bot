@@ -85,6 +85,8 @@ body, html {
 }
 
 .country-select {
+    display: none;
+    visibility: hidden;
     height: 40px;
     margin: 16px;
     background: #eaeaea;

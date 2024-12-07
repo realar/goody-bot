@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="company-details">
+    <a class="back-btn" href="{{ url_for('webapp.webapp_page') }}">Назад к каталогу компаний</a>
     <div class="company-images" id="company-carousel">
         {% for image in company.images %}
         <a href="{{ image }}" data-lg-size="1600-1067" data-lg="true">
@@ -10,7 +11,6 @@
     </div>
     <h2>{{ company.name }}</h2>
     <p>{{ company.description }}</p>
-    <a href="{{ url_for('webapp.webapp_page') }}">Назад к каталогу компаний</a>
 </div>
 
 <!-- Подключение стилей Lightbox -->
@@ -34,6 +34,9 @@
 </script>
 
 <style>
+    .back-btn {
+        font-size: 16px;
+    }
     .company-details {
         padding: 20px;
         background-color: #f9f9f9;

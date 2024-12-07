@@ -10,7 +10,7 @@ dispatcher = Dispatcher(bot, None, workers=0)
 def start(update: Update, context: CallbackContext):
     # URL вашего Web App
     webapp_url = "https://goody-bot.onrender.com/webapp"
-    image_url = "https://example.com/your_image.jpg"  # Ссылка на изображение
+    image_url = "https://5koleso.ru/wp-content/uploads/2022/06/changan_67.jpg"  # Ссылка на изображение
 
     # Создание кнопки для открытия Web App
     keyboard = [

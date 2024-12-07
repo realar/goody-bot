@@ -9,7 +9,7 @@ app = Flask(__name__, static_folder='webapp/static')
 app.register_blueprint(webapp_bp)  # Регистрируем blueprint веб-приложения
 
 BASE_URL = "https://api.baserow.io/api"
-TOKEN = "jCemNYEzlw9FlzKGNElvoAbh6o2gbFc4"  # Ваш токен
+TOKEN = "bearer jCemNYEzlw9FlzKGNElvoAbh6o2gbFc4"  # Ваш токен
 table_id = 403967       # Ваш table_id
 
 @app.route('/webhook', methods=['POST'])

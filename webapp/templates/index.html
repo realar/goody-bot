@@ -7,7 +7,7 @@
 <body>
     <h1>Каталог компаний</h1>
     <ul>
-{% for company in companies %}
+{% for company_id, company in companies.items() %}
     <li>
         <strong>{{ company.field_3083783 }}</strong><br>
         {{ company.field_3083784 }}

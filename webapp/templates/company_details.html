@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="company-details">
+    <div class="company-images">
+    {% for image in company.images %}
+    <img src="{{ image }}" alt="Изображение компании {{ company.name }}">
+    {% endfor %}
+    </div>
     <h2>{{ company.name }}</h2>
     <p>{{ company.description }}</p>
     <a href="{{ url_for('webapp.webapp_page') }}">Назад к каталогу компаний</a>

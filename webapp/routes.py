@@ -43,4 +43,8 @@ def webapp_page():
 
 @webapp_bp.route('/api/companies')
 def get_companies():
-    return jsonify(COMPANIES)
+    return jsonify([
+        {"name": "Company A", "description": "Company A - ведущий производитель электроники."},
+        {"name": "Company B", "description": "Company B - глобальная торговая сеть."},
+        {"name": "Company C", "description": "Company C - инновационный стартап в сфере ИИ."}
+    ])

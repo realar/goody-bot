@@ -3,7 +3,14 @@
 <div class="content">
     <h2>Каталог компаний</h2>
     <div id="company-list" class="company-list">
-        <p>Загрузка данных...</p>
+        <!-- Место для загрузочных блоков -->
+        <div class="loading">
+            <div class="loading-rect"></div>
+            <div class="loading-rect"></div>
+            <div class="loading-rect"></div>
+            <div class="loading-rect"></div>
+            <div class="loading-rect"></div>
+        </div>
     </div>
 </div>
 
@@ -22,39 +29,39 @@
     }
 
     function renderCompanies(companies) {
-    const container = document.getElementById('company-list');
-    container.innerHTML = ''; // Очищаем контейнер
+        const container = document.getElementById('company-list');
+        container.innerHTML = ''; // Очищаем контейнер
 
-    if (companies.length === 0) {
-        container.innerHTML = '<p>Компании не найдены.</p>';
-        return;
-    }
+        if (companies.length === 0) {
+            container.innerHTML = '<p>Компании не найдены.</p>';
+            return;
+        }
 
-    companies.forEach(company => {
-        const companyElement = document.createElement('div');
-        companyElement.classList.add('company');
+        companies.forEach(company => {
+            const companyElement = document.createElement('div');
+            companyElement.classList.add('company');
 
-        // Проверяем наличие данных, чтобы избежать ошибок
-        const logo = company.logo || 'default-logo.png'; // Подставьте путь к изображению по умолчанию
-        const name = company.name || 'Без названия';
-        const description = company.description || 'Описание отсутствует';
+            // Проверяем наличие данных, чтобы избежать ошибок
+            const logo = company.logo || 'default-logo.png'; // Подставьте путь к изображению по умолчанию
+            const name = company.name || 'Без названия';
+            const description = company.description || 'Описание отсутствует';
 
-        companyElement.innerHTML = `
-            <div class="company-logo">
-                <img src="${logo}" alt="Логотип компании ${name}">
-            </div>
-            <div class="company-name">${name}</div>
-            <div class="company-description">${description}</div>
-        `;
+            companyElement.innerHTML = `
+                <div class="company-logo">
+                    <img src="${logo}" alt="Логотип компании ${name}">
+                </div>
+                <div class="company-name">${name}</div>
+                <div class="company-description">${description}</div>
+            `;
 
-        // Добавляем обработчик клика для перенаправления
-        companyElement.addEventListener('click', () => {
-            window.location.href = `/company/${company.id}`; // Переход на страницу компании
+            // Добавляем обработчик клика для перенаправления
+            companyElement.addEventListener('click', () => {
+                window.location.href = `/company/${company.id}`; // Переход на страницу компании
+            });
+
+            container.appendChild(companyElement); // Добавляем элемент в контейнер
         });
-
-        container.appendChild(companyElement); // Добавляем элемент в контейнер
-    });
-}
+    }
 
     // Загружаем данные при загрузке страницы
     fetchCompanies();
@@ -83,7 +90,31 @@
     .company-logo img {
         max-width: 64px; /* Максимальная ширина */
         height: auto; /* Автоматическая высота */
-        border-rdius: 6px;
+        border-radius: 6px;
+    }
+
+    /* Стили для загрузочных блоков */
+    .loading {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    .loading-rect {
+        width: 64px;
+        height: 64px;
+        background-color: #e0e0e0;
+        border-radius: 8px;
+        animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    /* Анимация мерцания */
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
     }
 </style>
 {% endblock %}

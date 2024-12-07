@@ -6,7 +6,11 @@ COMPANIES = {
     "3": {"name": "Company C", "description": "Company C - инновационный стартап в сфере ИИ."}
 }
 
-webapp_bp = Blueprint('webapp', __name__, template_folder='templates', static_folder='static')
+webapp_bp = Blueprint(
+    'webapp', __name__,
+    template_folder='templates',
+    static_folder='static'
+)
 
 @webapp_bp.route('/webapp')
 def webapp_page():

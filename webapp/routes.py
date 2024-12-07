@@ -17,6 +17,8 @@ def fetch_companies_from_api():
                 "id": item.get("id"),
                 "name": item.get("field_3083783"),  # Имя компании
                 "description": item.get("field_3083784")  # Описание
+                "images": item.get("field_3083970", []),  # Массив изображений (ожидается список URL)
+                "logo": item.get("field_3084312")  # Логотип компании (URL)
             }
             for item in response.json().get("results", [])
         ]

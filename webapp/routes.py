@@ -38,10 +38,10 @@ def webapp_page():
     try:
         companies = fetch_companies_from_api()  # Получаем данные из API
         if not companies:
-            companies = [{"name": "Нет данных", "description": "Попробуйте позже."}]
+            companies = [{"id": 0, "name": "Нет данных", "description": "Попробуйте позже.", "logo": ""}]
     except Exception as e:
         print(f"Ошибка при загрузке данных: {e}")
-        companies = [{"name": "Ошибка", "description": "Не удалось загрузить компании."}]
+        companies = [{"id": 0, "name": "Ошибка", "description": "Не удалось загрузить компании.", "logo": ""}]
     return render_template('index.html', companies=companies)
 
 @webapp_bp.route('/api/companies')

@@ -31,7 +31,7 @@ def index():
         # data - это список словарей. Каждый словарь — запись компании
         # Например, data[0]['Name'] может быть названием компании,
         # если такое поле есть в таблице.
-
+        print(data)
         return render_template('index.html', companies=data)
     else:
         return f"Error: {response.status_code} {response.text}", 500

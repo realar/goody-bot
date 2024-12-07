@@ -29,13 +29,17 @@
             return;
         }
         companies.forEach(company => {
-            const companyElement = document.createElement('a');
+            const companyElement = document.createElement('div');
             companyElement.classList.add('company');
             companyElement.href = `/company/${company.id}`; // Генерация ссылки на детали компани
             companyElement.innerHTML = `
                 <div class="company-name">${company.name}</div>
                 <div class="company-description">${company.description}</div>
             `;
+            // Добавляем обработчик клика
+        companyElement.addEventListener('click', () => {
+            window.location.href = `/company/${company.id}`; // Перенаправление на страницу деталей компании
+        });
             container.appendChild(companyElement);
         });
     }

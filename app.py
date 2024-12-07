@@ -4,7 +4,7 @@ from bot import bot, dispatcher
 from webapp.routes import webapp_bp
 from config import HOST, PORT
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='webapp/static')
 app.register_blueprint(webapp_bp)  # Регистрируем blueprint веб-приложения
 
 @app.route('/webhook', methods=['POST'])

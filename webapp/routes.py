@@ -32,7 +32,13 @@ webapp_bp = Blueprint(
 
 @webapp_bp.route('/webapp')
 def webapp_page():
-    companies = fetch_companies_from_api()  # Получаем данные из API
+    try:
+        companies = fetch_companies_from_api()  # Получаем данные из API
+        if not companies:
+            companies = [{"name": "Нет данных", "description": "Попробуйте позже."}]
+    except Exception as e:
+        print(f"Ошибка при загрузке данных: {e}")
+        companies = [{"name": "Ошибка", "description": "Не удалось загрузить компании."}]
     return render_template('index.html', companies=companies)
 
 @webapp_bp.route('/api/companies')

@@ -7,10 +7,13 @@
 <body>
     <h1>Каталог компаний</h1>
     <ul>
-    {% for company in companies %}
-        <li>{{ company.Name }} - {{ company.Description }}</li>
-    {% endfor %}
-    </ul>
+{% for company in companies %}
+    <li>
+        <strong>{{ company.field_3083783 }}</strong><br>
+        {{ company.field_3083784 }}
+    </li>
+{% endfor %}
+</ul>
 </body>
 </html>
 {% endblock %}

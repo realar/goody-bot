@@ -29,7 +29,7 @@
             return;
         }
         companies.forEach(company => {
-            const companyElement = document.createElement('div');
+            const companyElement = document.createElement('a');
             companyElement.classList.add('company');
             companyElement.href = `/company/${company.id}`; // Генерация ссылки на детали компани
             companyElement.innerHTML = `

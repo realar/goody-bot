@@ -52,8 +52,8 @@ def get_companies():
 
 @webapp_bp.route('/company/<int:company_id>')
 def company_details(company_id):
-    # Загружаем данные компании из базы данных или API
-    company = next((comp for comp in fetch_companies_from_api() if comp['id'] == company_id), None)
+    companies = fetch_companies_from_api()
+    company = next((comp for comp in companies if comp['id'] == company_id), None)
     if not company:
-        return render_template('404.html'), 404  # Если компания не найдена
+        return render_template('404.html'), 404
     return render_template('company_details.html', company=company)

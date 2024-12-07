@@ -14,7 +14,7 @@ webapp_bp = Blueprint(
 
 @webapp_bp.route('/webapp')
 def webapp_page():
-    return render_template('index.html')
+    return render_template('index.html', companies=COMPANIES)
 
 @webapp_bp.route('/api/companies')
 def get_companies():

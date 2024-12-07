@@ -14,7 +14,11 @@
 
     {% if company.admin %}
     <div class="contact-admin">
-        <a href="https://t.me/{{ company.admin }}" target="_blank" class="contact-btn">Связаться с администратором</a>
+        <a href="https://t.me/{{ company.admin }}?text=Здравствуйте! Меня интересует авто из " 
+           target="_blank" 
+           class="contact-btn">
+           Связаться с администратором
+        </a>
     </div>
     {% else %}
     <p class="no-admin">Контакт администратора недоступен.</p>

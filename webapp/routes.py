@@ -1,4 +1,4 @@
-import requests 
+import requests
 from flask import Blueprint, render_template, jsonify
 
 def fetch_companies_from_api():
@@ -18,7 +18,8 @@ def fetch_companies_from_api():
                 "name": item.get("field_3083783"),  # Имя компании
                 "description": item.get("field_3083784"),  # Описание
                 "images": [photo.get("url") for photo in item.get("field_3083970", []) if photo.get("url")],
-                "logo": (item.get("field_3084312", [{}])[0].get("url") if item.get("field_3084312") else "")
+                "logo": (item.get("field_3084312", [{}])[0].get("url") if item.get("field_3084312") else ""),
+                "admin": item.get("field_3086409")  # Telegram alias администратора
             }
             for item in response.json().get("results", [])
         ]
@@ -38,10 +39,10 @@ def webapp_page():
     try:
         companies = fetch_companies_from_api()  # Получаем данные из API
         if not companies:
-            companies = [{"id": 0, "name": "Нет данных", "description": "Попробуйте позже.", "logo": ""}]
+            companies = [{"id": 0, "name": "Нет данных", "description": "Попробуйте позже.", "logo": "", "admin": ""}]
     except Exception as e:
         print(f"Ошибка при загрузке данных: {e}")
-        companies = [{"id": 0, "name": "Ошибка", "description": "Не удалось загрузить компании.", "logo": ""}]
+        companies = [{"id": 0, "name": "Ошибка", "description": "Не удалось загрузить компании.", "logo": "", "admin": ""}]
     return render_template('index.html', companies=companies)
 
 @webapp_bp.route('/api/companies')
@@ -55,8 +56,12 @@ def get_companies():
 
 @webapp_bp.route('/company/<int:company_id>')
 def company_details(company_id):
-    companies = fetch_companies_from_api()
-    company = next((comp for comp in companies if comp['id'] == company_id), None)
-    if not company:
+    try:
+        companies = fetch_companies_from_api()
+        company = next((comp for comp in companies if comp['id'] == company_id), None)
+        if not company:
+            return render_template('404.html'), 404
+        return render_template('company_details.html', company=company)
+    except Exception as e:
+        print(f"Ошибка при загрузке компании: {e}")
         return render_template('404.html'), 404
-    return render_template('company_details.html', company=company)

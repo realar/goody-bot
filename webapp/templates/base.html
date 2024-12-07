@@ -5,6 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>{{ title if title else "Гуди" }}</title>
 <link rel="stylesheet" href="{{ url_for('webapp.static', filename='css/style.css') }}">
+<style>
+    body {
+        margin: 0;
+        font-family: sans-serif;
+        padding-top: 60px; /* Чтобы контент не перекрывался зафиксированным хедером */
+    }
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: top 0.3s ease-in-out; /* Плавное исчезновение */
+    }
+    .country-select {
+        position: sticky;
+        top: 60px;
+        background-color: #eaeaea;
+        z-index: 999;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+    .country-select.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+</style>
 </head>
 <body>
 
@@ -23,7 +51,7 @@
     </div>
 </div>
 
-<div class="country-select">
+<div class="country-select" id="countrySelect">
     <div class="country-select-text">Страна аукциона</div>
     <div class="country-select-arrow"></div>
 </div>
@@ -35,9 +63,28 @@
 <script>
     const header = document.getElementById('header');
     const burger = document.getElementById('burger');
+    const countrySelect = document.getElementById('countrySelect');
 
+    // Обработчик для раскрытия меню
     burger.addEventListener('click', () => {
         header.classList.toggle('expanded');
+    });
+
+    // Логика для скрытия country-select при скролле
+    let lastScrollTop = 0;
+
+    window.addEventListener('scroll', () => {
+        const currentScrollTop = window.scrollY;
+
+        if (currentScrollTop > lastScrollTop) {
+            // Скрываем country-select при прокрутке вниз
+            countrySelect.classList.add('hidden');
+        } else {
+            // Показываем country-select при прокрутке вверх
+            countrySelect.classList.remove('hidden');
+        }
+
+        lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
     });
 </script>
 <script src="{{ url_for('static', filename='js/app.js') }}"></script>

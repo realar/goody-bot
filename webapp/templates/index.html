@@ -3,17 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Каталог компаний</title>
+    <style>
+        .company-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .company-item {
+            background-color: #f0f0f0; /* Светло-серый фон */
+            margin: 10px 0; /* Отступы между элементами */
+            padding: 10px 15px; /* Внутренние отступы */
+            border-radius: 8px; /* Закруглённые углы */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Тень */
+        }
+        .company-name {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px; /* Отступ между названием и описанием */
+        }
+        .company-description {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
     <h1>Каталог компаний</h1>
-    <ul>
-{% for company in companies %}
-    <li>
-        <strong>{{ company.name }}</strong><br>
-        {{ company.description }}
-    </li>
-{% endfor %}
-</ul>
+    <ul class="company-list">
+        {% for company in companies %}
+        <li class="company-item">
+            <div class="company-name">{{ company.name }}</div>
+            <div class="company-description">{{ company.description }}</div>
+        </li>
+        {% endfor %}
+    </ul>
 </body>
-</html>
 {% endblock %}
